@@ -61,9 +61,9 @@ void show_tokens(const Token* head) {
 
             switch (current_token -> type) {
                 case TOK_OPER:          printf("<OPER: [%s]> \n", current_token -> value);              break;
-                case TOK_NUM:           printf("<NUMB: [%s]> \n", current_token -> value);                break;
+                case TOK_NUM:           printf("<NUMB: [%s]> \n", current_token -> value);              break;
                 case TOK_PARENTH:       printf("<PARENTH: [%s]> \n", current_token -> value);           break;
-                default:                printf("<N/A: [%s]> \n", current_token -> value);    break;
+                default:                printf("<N/A: [%s]> \n", current_token -> value);               break;
         }
         current_token = current_token -> next;
     }
