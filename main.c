@@ -59,7 +59,7 @@ void show_tokens(const Token* head) {
         const Token* current_token = head;
         while (current_token != NULL) {
 
-            switch (current_token -> type) {
+        switch (current_token -> type) {
                 case TOK_OPER:          printf("<OPER: [%s]> \n", current_token -> value);              break;
                 case TOK_NUM:           printf("<NUMB: [%s]> \n", current_token -> value);              break;
                 case TOK_PARENTH:       printf("<PARENTH: [%s]> \n", current_token -> value);           break;
@@ -73,45 +73,44 @@ void show_tokens(const Token* head) {
 }
 
 void lex_expression(const char* expression, Token** head) {
-        char *buffer = (char*) calloc(MAX_TOKEN_LENGTH, 1);
+        char* buffer = (char*)calloc(MAX_TOKEN_LENGTH, 1);
         size_t buffer_index = 0;
 
         for (size_t i = 0; i < strlen(expression); ++i) {
-            if (expression[i] == '+' || expression[i] == '-' || expression[i] == '*' || expression[i] == '/') {
-                if (buffer_index > 0) {
-                    buffer[buffer_index] = '\0';
-                    bind_token(head, NULL, TOK_NUM, buffer);
-                    buffer_index = 0;
-            }
-                bind_token(head, NULL, TOK_OPER, (char[]){expression[i], '\0'});
-
-        }   else if (isdigit(expression[i])) {
-                buffer[buffer_index] = expression[i];
-                ++buffer_index;
-
-        }   else {
-                if (isspace(expression[i])) continue;
-                if (expression[i] == '(' || expression[i] == ')') {
-                  if (buffer_index > 0) {
-                    buffer[buffer_index] = '\0';
-                    bind_token(head, NULL, TOK_NUM, buffer);
-                    buffer_index = 0;
-                  }
-                  bind_token(head, NULL, TOK_PARENTH,
-                             (char[]){expression[i], '\0'});
+                if (expression[i] == '+' || expression[i] == '-' || expression[i] == '*' || expression[i] == '/') {
+                        if (buffer_index > 0) {
+                                buffer[buffer_index] = '\0';
+                                bind_token(head, NULL, TOK_NUM, buffer);
+                                buffer_index = 0;
+                        }
+                        bind_token(head, NULL, TOK_OPER, (char[]){expression[i], '\0'});
+                } else if (isdigit(expression[i])) {
+                        buffer[buffer_index] = expression[i];
+                        ++buffer_index;
                 } else {
-                  continue;
+                        if (isspace(expression[i]))
+                                continue;
+                        if (expression[i] == '(' || expression[i] == ')') {
+                                if (buffer_index > 0) {
+                                        buffer[buffer_index] = '\0';
+                                        bind_token(head, NULL, TOK_NUM, buffer);
+                                        buffer_index = 0;
+                                }
+                                bind_token(head, NULL, TOK_PARENTH, (char[]){expression[i], '\0'});
+                        } else {
+                                continue;
+                        }
                 }
         }
-    }
 
         if (buffer_index > 0) {
-            buffer[buffer_index] = '\0';
-            bind_token(head, NULL, TOK_NUM, buffer);
-    }
+                buffer[buffer_index] = '\0';
+                bind_token(head, NULL, TOK_NUM, buffer);
+        }
 
         return;
 }
+
 
 int main() {
         char *expression = (char*) calloc(100,1);
