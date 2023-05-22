@@ -60,10 +60,10 @@ void show_tokens(const Token* head) {
         while (current_token != NULL) {
 
         switch (current_token -> type) {
-                case TOK_OPER:          printf("<OPER: [%s]> \n", current_token -> value);              break;
-                case TOK_NUM:           printf("<NUMB: [%s]> \n", current_token -> value);              break;
-                case TOK_PARENTH:       printf("<PARENTH: [%s]> \n", current_token -> value);           break;
-                default:                printf("<N/A: [%s]> \n", current_token -> value);               break;
+                case TOK_OPER:          printf("Found <OPER> @ [%s] \n", current_token -> value);              break;
+                case TOK_NUM:           printf("Found <NUMB> @ [%s] \n", current_token -> value);              break;
+                case TOK_PARENTH:       printf("Found <PARENTH> @ [%s] \n", current_token -> value);           break;
+                default:                printf("Found <N/A> @ [%s] \n", current_token -> value);               break;
         }
         current_token = current_token -> next;
     }
@@ -114,8 +114,7 @@ void lex_expression(const char* expression, Token** head) {
 
 int main() {
         char *expression = (char*) calloc(100,1);
-
-        printf("Enter an arithmetic expression: ");
+        printf(":3 expr: ");
         scanf(" %[^\n]", expression);
 
         Token* head = NULL;
